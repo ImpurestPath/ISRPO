@@ -57,4 +57,23 @@ public class TournamentRepository {
     public void close() {
         pw.close();
     }
+
+    public List<Tournament> getPlayerGames(Player player){
+        List<Tournament> tournaments = new ArrayList<>();
+        for (Tournament game : tournaments){
+            if (game.getPlayers().contains(player)){
+                tournaments.add(game);
+            }
+        }
+        return tournaments;
+    }
+    public List<Tournament> getPlayerWinGames(Player player){
+        List<Tournament> win = new ArrayList<>();
+        for (Tournament tournament : tournaments){
+            if (tournament.getWinners().contains(player)){
+                win.add(tournament);
+            }
+        }
+        return win;
+    }
 }
