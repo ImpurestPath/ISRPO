@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - helloworld",
+            "request": "launch",
+            "mainClass": "ru.ifmo.isrpo.helloworld",
+            "projectName": "lab1"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Cli",
+            "request": "launch",
+            "mainClass": "ru.ifmo.isrpo.Cli",
+            "projectName": "lab1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<lab1>",
+            "request": "launch",
+            "mainClass": "ru.ifmo.isrpo.App",
+            "projectName": "lab1"
+        }
+    ]
+}
