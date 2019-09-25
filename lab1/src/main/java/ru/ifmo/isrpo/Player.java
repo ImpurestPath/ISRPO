@@ -12,11 +12,6 @@ public class Player {
         load(scanner);
     }
 
-    public Player() {
-        id = 0;
-        name = "error";
-    }
-
     public Player(int id, String name) {
         this.id = id;
         this.name = name;

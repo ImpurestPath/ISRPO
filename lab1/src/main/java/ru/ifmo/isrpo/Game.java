@@ -24,8 +24,6 @@ public class Game {
         this.winners = new ArrayList<>();
     }
 
-    public Game() {
-    }
 
     public Game(Scanner scanner, PlayerRepository ps) {
         load(scanner, ps);
@@ -87,7 +85,7 @@ public class Game {
      * @param scanner scanner where take data
      * @param ps need to find players
      */
-    public void load(Scanner scanner, PlayerRepository ps) {
+    private void load(Scanner scanner, PlayerRepository ps) {
         if (scanner.hasNextInt()) {
             this.id = scanner.nextInt();
             this.players = new ArrayList<>();

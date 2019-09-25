@@ -12,8 +12,6 @@ public class Tournament {
     private List<Float> score;
     private List<Player> winners;
 
-    public Tournament() {
-    }
 
     public Tournament(Scanner scanner, PlayerRepository ps, GameRepository gs) {
         load(scanner, ps, gs);
