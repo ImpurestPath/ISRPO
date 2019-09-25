@@ -69,6 +69,7 @@ public class Tournament {
             if (score.get(i) > max) {
                 winners.clear();
                 winners.add(players.get(i));
+                max = score.get(i);
             } else if (score.get(i) == max) {
                 winners.add(players.get(i));
             }
