@@ -93,8 +93,8 @@ public class Tournament {
             if (score.get(i) - max > 0.001) {
                 winners.clear();
                 winners.add(players.get(i));
-
-            } else if (score.get(i) == max) {
+                max = score.get(i);
+            } else if (score.get(i) - max < 0.001 && score.get(i) - max > -0.001) {
                 winners.add(players.get(i));
             }
         }

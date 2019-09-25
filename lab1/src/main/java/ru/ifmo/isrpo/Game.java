@@ -49,10 +49,11 @@ public class Game {
         float max = 0;
         winners.clear();
         for (int i = 0; i < score.size(); i++) {
-            if (score.get(i) > max) {
+            if (score.get(i) - max > 0.001) {
                 winners.clear();
                 winners.add(players.get(i));
-            } else if (score.get(i) == max) {
+                max = score.get(i);
+            } else if (score.get(i) - max < 0.001 && score.get(i) - max > -0.001) {
                 winners.add(players.get(i));
             }
         }
