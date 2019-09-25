@@ -12,8 +12,6 @@ public class Tournament {
     private List<Float> score;
     private List<Player> winners;
 
-    public Tournament() {
-    }
 
     public Tournament(Scanner scanner, PlayerRepository ps, GameRepository gs) {
         load(scanner, ps, gs);
@@ -31,6 +29,32 @@ public class Tournament {
         this.games = games;
         this.players = players;
         this.score = score;
+        this.winners = new ArrayList<>();
+    }
+
+    /**
+     * Construcor that get players from games
+     * 
+     * @param id
+     * @param games
+     * @param score
+     */
+    public Tournament(int id, List<Game> games) {
+        this.id = id;
+        this.games = games;
+        this.players = new ArrayList<>();
+        this.score = new ArrayList<>();
+        for (Game game : games) {
+            for (Player player : game.getPlayers()) {
+                if (!players.contains(player)) {
+                    players.add(player);
+                    score.add((float)0);
+                }
+            }
+            for (Player player : game.getWinner()) {
+                score.set(players.indexOf(player),score.get(players.indexOf(player)) + 1);
+            }
+        }
         this.winners = new ArrayList<>();
     }
 
@@ -66,7 +90,7 @@ public class Tournament {
         float max = 0;
         winners.clear();
         for (int i = 0; i < score.size(); i++) {
-            if (score.get(i) > max) {
+            if (score.get(i) - max > 0.001) {
                 winners.clear();
                 winners.add(players.get(i));
                 max = score.get(i);
