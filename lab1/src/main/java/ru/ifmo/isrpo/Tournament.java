@@ -34,6 +34,31 @@ public class Tournament {
         this.winners = new ArrayList<>();
     }
 
+    /**
+     * Construcor that get players from games
+     * 
+     * @param id
+     * @param games
+     * @param score
+     */
+    public Tournament(int id, List<Game> games) {
+        this.id = id;
+        this.games = games;
+        this.players = new ArrayList<>();
+        for (Game game : games) {
+            for (Player player : game.getPlayers()) {
+                if (!players.contains(player)) {
+                    players.add(player);
+                }
+            }
+        }
+        this.score = new ArrayList<>();
+        for (int i = 0; i < players.size(); i++) {
+            score.add((float)0);
+        }
+        this.winners = new ArrayList<>();
+    }
+
     public Tournament(int id, List<Game> games, List<Player> players, List<Float> score, List<Player> winners) {
         this.id = id;
         this.games = games;
