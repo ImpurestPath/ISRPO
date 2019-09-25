@@ -56,6 +56,25 @@ public class GameRepository {
         return null;
     }
 
+    public List<Game> getPlayerGames(Player player){
+        List<Game> playergames = new ArrayList<>();
+        for (Game game : games){
+            if (game.getPlayers().contains(player)){
+                playergames.add(game);
+            }
+        }
+        return playergames;
+    }
+    public List<Game> getPlayerWinGames(Player player){
+        List<Game> wingames = new ArrayList<>();
+        for (Game game : games){
+            if (game.getWinner().contains(player)){
+                wingames.add(game);
+            }
+        }
+        return wingames;
+    }
+
     public void close() {
         pw.close();
     }
