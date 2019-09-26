@@ -2,8 +2,11 @@ package ru.ifmo.isrpo;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Tournament {
     private int id;
@@ -11,7 +14,6 @@ public class Tournament {
     private List<Player> players;
     private List<Float> score;
     private List<Player> winners;
-
 
     public Tournament(Scanner scanner, PlayerRepository ps, GameRepository gs) {
         load(scanner, ps, gs);
@@ -48,11 +50,11 @@ public class Tournament {
             for (Player player : game.getPlayers()) {
                 if (!players.contains(player)) {
                     players.add(player);
-                    score.add((float)0);
+                    score.add((float) 0);
                 }
             }
             for (Player player : game.getWinner()) {
-                score.set(players.indexOf(player),score.get(players.indexOf(player)) + 1);
+                score.set(players.indexOf(player), score.get(players.indexOf(player)) + 1);
             }
         }
         this.winners = new ArrayList<>();
@@ -163,5 +165,20 @@ public class Tournament {
                     break;
             }
         }
+    }
+
+    public Map<Float, Player> getScoresWithPlayer() {
+        Map<Float, Player> map = new HashMap<>();
+        for (int i = 0; i < players.size(); i++) {
+            map.put(score.get(i), players.get(i));
+        }
+        return map;
+    }
+
+    public float getPlayerScore(Player needPlayer) {
+        if (players.contains(needPlayer)) {
+            return score.get(players.indexOf(needPlayer));
+        } else
+            return -1;
     }
 }
