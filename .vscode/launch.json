@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "ru.test.test.App",
+            "projectName": "submodulestest"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - helloworld",
             "request": "launch",
             "mainClass": "ru.ifmo.isrpo.helloworld",
