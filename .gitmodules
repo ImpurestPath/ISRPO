@@ -1,0 +1,3 @@
+[submodule "lfs_module"]
+	path = lfs_module
+	url = https://github.com/ImpurestPath/subtest.git
