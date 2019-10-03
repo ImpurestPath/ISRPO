@@ -2,16 +2,23 @@ package ru.ifmo.isrpo;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Tournament {
+
+    public enum Level {
+        BEGINNER, AMATEUR, PROFESSIONAL
+    }
+
     private int id;
     private List<Game> games;
     private List<Player> players;
     private List<Float> score;
     private List<Player> winners;
-
+    private Level level;
 
     public Tournament(Scanner scanner, PlayerRepository ps, GameRepository gs) {
         load(scanner, ps, gs);
@@ -24,8 +31,9 @@ public class Tournament {
      * @param players list of players that participated in tournament
      * @param score   list of float score for each player
      */
-    public Tournament(int id, List<Game> games, List<Player> players, List<Float> score) {
+    public Tournament(int id, Level level, List<Game> games, List<Player> players, List<Float> score) {
         this.id = id;
+        this.level = level;
         this.games = games;
         this.players = players;
         this.score = score;
@@ -39,8 +47,9 @@ public class Tournament {
      * @param games
      * @param score
      */
-    public Tournament(int id, List<Game> games) {
+    public Tournament(int id, Level level, List<Game> games) {
         this.id = id;
+        this.level = level;
         this.games = games;
         this.players = new ArrayList<>();
         this.score = new ArrayList<>();
@@ -48,18 +57,20 @@ public class Tournament {
             for (Player player : game.getPlayers()) {
                 if (!players.contains(player)) {
                     players.add(player);
-                    score.add((float)0);
+                    score.add((float) 0);
                 }
             }
             for (Player player : game.getWinner()) {
-                score.set(players.indexOf(player),score.get(players.indexOf(player)) + 1);
+                score.set(players.indexOf(player), score.get(players.indexOf(player)) + 1);
             }
         }
         this.winners = new ArrayList<>();
     }
 
-    public Tournament(int id, List<Game> games, List<Player> players, List<Float> score, List<Player> winners) {
+    public Tournament(int id, Level level, List<Game> games, List<Player> players, List<Float> score,
+            List<Player> winners) {
         this.id = id;
+        this.level = level;
         this.games = games;
         this.players = players;
         this.score = score;
@@ -72,6 +83,10 @@ public class Tournament {
 
     public int getId() {
         return this.id;
+    }
+
+    public Level getLevel() {
+        return this.level;
     }
 
     public List<Game> getGames() {
@@ -94,7 +109,7 @@ public class Tournament {
                 winners.clear();
                 winners.add(players.get(i));
                 max = score.get(i);
-            } else if (score.get(i) == max) {
+            } else if (score.get(i) - max < 0.001 && score.get(i) - max > -0.001) {
                 winners.add(players.get(i));
             }
         }
@@ -127,7 +142,7 @@ public class Tournament {
         for (int i = 0; i < score.size(); i++) {
             pw.print(String.format("%f ", score.get(i)));
         }
-        pw.print(String.format("%d \n", -1));
+        pw.print(String.format("%d %d %d \n", -1, level.ordinal(), -1));
         pw.flush();
     }
 
@@ -162,6 +177,23 @@ public class Tournament {
                 } else
                     break;
             }
+            this.level = Level.values()[scanner.nextInt() - 1];
+            scanner.nextInt();
         }
+    }
+
+    public Map<Float, Player> getScoresWithPlayer() {
+        Map<Float, Player> map = new HashMap<>();
+        for (int i = 0; i < players.size(); i++) {
+            map.put(score.get(i), players.get(i));
+        }
+        return map;
+    }
+
+    public float getPlayerScore(Player needPlayer) {
+        if (players.contains(needPlayer)) {
+            return score.get(players.indexOf(needPlayer));
+        } else
+            return -1;
     }
 }

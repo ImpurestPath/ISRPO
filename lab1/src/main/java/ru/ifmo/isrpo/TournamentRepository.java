@@ -47,8 +47,8 @@ public class TournamentRepository {
      * @param score
      * @return
      */
-    public int createTournament(List<Game> games, List<Player> players, List<Float> score) {
-        Tournament t = new Tournament(lastId + 1, games, players, score);
+    public int createTournament(Tournament.Level level, List<Game> games, List<Player> players, List<Float> score) {
+        Tournament t = new Tournament(lastId + 1, level, games, players, score);
         t.save(pw);
         tournaments.add(t);
         return ++lastId;
@@ -56,5 +56,25 @@ public class TournamentRepository {
 
     public void close() {
         pw.close();
+    }
+
+    public List<Tournament> getPlayerGames(Player player) {
+        List<Tournament> tournaments = new ArrayList<>();
+        for (Tournament game : tournaments) {
+            if (game.getPlayers().contains(player)) {
+                tournaments.add(game);
+            }
+        }
+        return tournaments;
+    }
+
+    public List<Tournament> getPlayerWinGames(Player player) {
+        List<Tournament> win = new ArrayList<>();
+        for (Tournament tournament : tournaments) {
+            if (tournament.getWinners().contains(player)) {
+                win.add(tournament);
+            }
+        }
+        return win;
     }
 }
