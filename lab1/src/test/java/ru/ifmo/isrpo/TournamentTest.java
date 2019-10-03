@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ru.ifmo.isrpo.Tournament.Level;
+
 public class TournamentTest {
 
     @Test
@@ -22,7 +24,7 @@ public class TournamentTest {
         Game game = new Game(1, players, score);
         List<Game> games = new ArrayList<>();
         games.add(game);
-        Tournament tournament = new Tournament(1, games);
+        Tournament tournament = new Tournament(1, Level.BEGINNER, games);
         assertEquals(player1, tournament.getPlayers().get(0));
         assertEquals(player1, tournament.getWinners().get(0));
     }

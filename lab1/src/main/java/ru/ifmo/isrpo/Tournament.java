@@ -6,14 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Tournament {
+
+    public enum Level {
+        BEGINNER, AMATEUR, PROFESSIONAL
+    }
+
     private int id;
     private List<Game> games;
     private List<Player> players;
     private List<Float> score;
     private List<Player> winners;
+    private Level level;
 
     public Tournament(Scanner scanner, PlayerRepository ps, GameRepository gs) {
         load(scanner, ps, gs);
@@ -26,8 +31,9 @@ public class Tournament {
      * @param players list of players that participated in tournament
      * @param score   list of float score for each player
      */
-    public Tournament(int id, List<Game> games, List<Player> players, List<Float> score) {
+    public Tournament(int id, Level level, List<Game> games, List<Player> players, List<Float> score) {
         this.id = id;
+        this.level = level;
         this.games = games;
         this.players = players;
         this.score = score;
@@ -41,8 +47,9 @@ public class Tournament {
      * @param games
      * @param score
      */
-    public Tournament(int id, List<Game> games) {
+    public Tournament(int id, Level level, List<Game> games) {
         this.id = id;
+        this.level = level;
         this.games = games;
         this.players = new ArrayList<>();
         this.score = new ArrayList<>();
@@ -60,8 +67,10 @@ public class Tournament {
         this.winners = new ArrayList<>();
     }
 
-    public Tournament(int id, List<Game> games, List<Player> players, List<Float> score, List<Player> winners) {
+    public Tournament(int id, Level level, List<Game> games, List<Player> players, List<Float> score,
+            List<Player> winners) {
         this.id = id;
+        this.level = level;
         this.games = games;
         this.players = players;
         this.score = score;
@@ -74,6 +83,10 @@ public class Tournament {
 
     public int getId() {
         return this.id;
+    }
+
+    public Level getLevel() {
+        return this.level;
     }
 
     public List<Game> getGames() {
@@ -129,7 +142,7 @@ public class Tournament {
         for (int i = 0; i < score.size(); i++) {
             pw.print(String.format("%f ", score.get(i)));
         }
-        pw.print(String.format("%d \n", -1));
+        pw.print(String.format("%d %d %d \n", -1, level.ordinal(), -1));
         pw.flush();
     }
 
@@ -164,6 +177,8 @@ public class Tournament {
                 } else
                     break;
             }
+            this.level = Level.values()[scanner.nextInt() - 1];
+            scanner.nextInt();
         }
     }
 

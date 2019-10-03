@@ -73,6 +73,8 @@ public class Cli {
         for (int i = 0; i < amount; i++) {
             score.add(scanner.nextFloat());
         }
-        System.out.println("Tournament id: " + App.tr.createTournament(games, players, score));
+        System.out.println("Enter level of tournament");
+        int level = scanner.nextInt();
+        System.out.println("Tournament id: " + App.tr.createTournament(Tournament.Level.values()[level-1], games, players, score));
     }
 }
